@@ -7,3 +7,20 @@ services:
       - 3000:3000
     volumes:
       - ./examples:/examples:ro
+    environment:
+      - AWS_ACCESS_KEY=minioadmin
+      - AWS_SECRET_KEY=minioadmin
+      - AWS_ENDPOINT=minio:9000
+    command: ["-mode=server"]
+  minio:
+    image: minio/minio:RELEASE.2024-07-31T05-46-26Z
+    ports:
+      - 9090:9090
+      - 9000:9000
+    command:
+      - server
+      - /data
+      - --console-address
+      - :9090
+      - --address
+      - :9000
